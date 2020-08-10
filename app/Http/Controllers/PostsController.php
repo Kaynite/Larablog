@@ -7,7 +7,6 @@ use App\Events\PostViews;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\Console\Input\Input;
 
 class PostsController extends Controller
 {
@@ -50,17 +49,9 @@ class PostsController extends Controller
 
     public function show($id)
     {
-        if (!is_numeric($id)) {
-            return abort(404);
-        } else {
-            $post = Post::find($id);
-            event(new PostViews($post));
-            if (!empty($post)) {
-                return view("post", compact("post"));
-            } else {
-                return abort(404);
-            }
-        }
+        $post = Post::findOrFail($id);
+        event(new PostViews($post)); // Post Views Event
+        return view("post", compact("post"));
     }
 
     public function edit($id)

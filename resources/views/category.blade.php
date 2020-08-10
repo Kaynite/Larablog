@@ -7,16 +7,16 @@
         <!-- row -->
         <div class="row">
             <div class="col-md-8">
-                @if (count($posts) >= 1)
-                    @foreach ($posts as $post)
+                @if (count($category->posts) >= 1)
+                    @foreach ($category->posts as $post)
                     <div class="post post-row">
-                        <a class="post-img" href="/blog/post/{{ $post->id }}"><img src="./img/post-13.jpg" alt=""></a>
+                        <a class="post-img" href="/post/{{ $post->id }}"><img src="/img/post-13.jpg" alt=""></a>
                         <div class="post-body">
                             <div class="post-category">
                                 <a href="category.html">{{ $post->category->name }}</a>
                                 <a href="category.html">Lifestyle</a>
                             </div>
-                            <h3 class="post-title"><a href="/blog/post/{{ $post->id }}">{{ $post->title }}</a></h3>
+                            <h3 class="post-title"><a href="/post/{{ $post->id }}">{{ $post->title }}</a></h3>
                             <ul class="post-meta">
                                 <li><a href="author.html">{{ $post->author }}</a></li>
                                 <li>{{ date("d F Y", strtotime($post->created_at)) }}</li>
