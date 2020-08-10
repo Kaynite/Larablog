@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Events\PostViews;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -53,6 +54,7 @@ class PostsController extends Controller
             return abort(404);
         } else {
             $post = Post::find($id);
+            event(new PostViews($post));
             if (!empty($post)) {
                 return view("post", compact("post"));
             } else {

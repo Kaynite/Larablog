@@ -319,7 +319,7 @@
 							<li><a href="author.html">{{ $post->author }}</a></li>
 							<li>{{ date("d F Y", strtotime($post->created_at)) }}</li>
 							<li><i class="fa fa-comments"></i> 3</li>
-							<li><i class="fa fa-eye"></i> 807</li>
+							<li><i class="fa fa-eye"></i> {{ $post->views }}</li>
 						</ul>
 					</div>
 				</div>
