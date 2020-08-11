@@ -12,5 +12,5 @@ Route::group(["prefix" => "/post"], function() {
     Route::get('{id}/edit', "PostsController@edit");
 });
 
-Route::get('category/{id}', "CategoriesController@show");
+Route::get('category/{id}', "CategoriesController@show")->name("showCategory");
 

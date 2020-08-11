@@ -8,11 +8,10 @@
                 @if (count($posts) >= 1)
                     @foreach ($posts as $post)
                     <div class="post post-row">
-                        <a class="post-img" href="{{ route("showPost", $post->id) }}"><img src="./img/post-13.jpg" alt=""></a>
+                        <a class="post-img" href="{{ route("showPost", $post->id) }}"><img src="{{asset("img/post-13.jpg")}}" alt=""></a>
                         <div class="post-body">
                             <div class="post-category">
-                                <a href="category.html">{{ $post->category->name }}</a>
-                                <a href="category.html">Lifestyle</a>
+                                <a href="{{ route("showCategory", $post->category->id) }}">{{ $post->category->name }}</a>
                             </div>
                             <h3 class="post-title"><a href="{{ route("showPost", $post->id) }}">{{ $post->title }}</a></h3>
                             <ul class="post-meta">

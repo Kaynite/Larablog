@@ -13,7 +13,8 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy("id", "desc")->get();
-        return view("blog")->with("posts", $posts);
+        $hotPosts = Post::select("id", "title", "author", "category_id", "created_at")->where("hot", 1)->limit(3)->orderBy("id", "desc")->get();
+        return view("blog")->with(["posts" => $posts, "hotPosts" => $hotPosts]);
     }
 
     public function create()
