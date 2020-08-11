@@ -22,7 +22,7 @@
                     <div class="section-row">
                         <h3>{{ $post->title }}</h3>
                         <div class="post-body">
-                            {{ $post->body }}
+                            {!! $post->body !!}
                         </div>
                     </div>
                     <!-- /post content -->

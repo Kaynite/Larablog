@@ -18,10 +18,10 @@
                                 <li><a href="author.html">{{ $post->author }}</a></li>
                                 <li>{{ date("d F Y", strtotime($post->created_at)) }}</li>
                             </ul>
-                            @if(strlen($post->body) > 150)
-                                <p>{{ substr($post->body, 0, 150) . ' ...'  }}</p>
+                            @if(strlen(strip_tags($post->body)) > 150)
+                                <p>{{ substr(strip_tags($post->body), 0, 150) . ' ...'  }}</p>
                             @else
-                                <p>{{ $post->body }}</p>
+                                <p>{{ strip_tags($post->body) }}</p>
                             @endif
                             
                         </div>

@@ -36,7 +36,7 @@
                                     <td>{{ $post->created_at }}</td>
                                     <td>
                                         <a href="{{ route("adminEditPost", $post->id) }}" class="btn btn-primary"><i class="feather icon-edit"></i></a>
-                                        <a href="" class="btn btn-danger"><i class="feather icon-trash"></i></a>
+                                        <a href="{{ route("adminDeletePost", $post->id) }}" class="btn btn-danger"><i class="feather icon-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

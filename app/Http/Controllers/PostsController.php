@@ -20,7 +20,7 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::get();
-        return view("admin.create")->with("categories", $categories);
+        return view("admin.createpost")->with("categories", $categories);
     }
 
     public function store(Request $request)
@@ -43,9 +43,10 @@ class PostsController extends Controller
             "body"          => $request->body,
             "category_id"   => $request->category_id,
             "author"        => "Kareem",
-            "image"         => ""
+            "image"         => "",
+            "hot"           => $request->hot
         ]);
-        return redirect("/blog");
+        return redirect()->route("adminPosts");
     }
 
     public function show($id)
@@ -57,24 +58,44 @@ class PostsController extends Controller
 
     public function edit($id)
     {
+        $categories = Category::get();
         $post = Post::findOrFail($id);
-        return $post;
+        return view("admin.editpost")
+        ->with([
+            "post" => $post,
+            "categories" => $categories
+        ]);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+        if ($post) {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    "title"         => "required",
+                    "body"          => "required",
+                    "category_id"   => "required",
+                    "hot"           => "numeric"
+                ]
+            );
+        }
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+
+        $post->update($request->all());
+        return redirect()->route("adminEditPost", $id)->with("success", "Post Updated Successfully");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $post->delete();
+        return back()->with(["message" => "Post was Deleted Successfully"]);
     }
 
 
