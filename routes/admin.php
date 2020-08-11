@@ -1,17 +1,24 @@
 <?php
 
-Route::get('/admin', function () {
-    return "Hello Admin!";
-});
+use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
-    Route::get('users', function () {
-        return "Users Page";
+
+
+Route::group(['prefix' => 'admin'], function () {
+
+    Route::get('/', function () {
+        return view("admin.layouts.main");
     });
 
-    Route::get('settings', function () {
+    Route::get('posts', "PostsController@adminPosts")->name("adminPosts");
+    Route::get('posts/create', "PostsController@create")->name("adminCreatePost");
+    Route::get('posts/{id}/edit', "PostsController@edit")->name("adminEditPost");
+
+    Route::get('categories', function () {
         return "Settings Page";
-    });
+    })->name("adminCategories");
 
-    Route::get('default', 'SecondController@show');
+    Route::get('comments', function() {
+
+    })->name("adminComments");
 });

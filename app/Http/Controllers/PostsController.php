@@ -57,6 +57,8 @@ class PostsController extends Controller
 
     public function edit($id)
     {
+        $post = Post::findOrFail($id);
+        return $post;
     }
 
     public function update(Request $request, $id)
@@ -73,5 +75,14 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function adminPosts()
+    {
+        $posts = Post::select("id", "title", "category_id", "author", "views", "created_at")
+        ->orderBy("id", "desc")->get();
+
+        return view("admin.posts")->with("posts", $posts);
     }
 }
