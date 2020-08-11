@@ -152,7 +152,7 @@
                     <!-- post comments -->
                     <div class="section-row">
                         <div class="section-title">
-                            <h3 class="title">{{ count($post->comments) }} Comment(s)</h3>
+                            <h3 class="title">{{ $post->comments->count() }} Comment(s)</h3>
                         </div>
                         <div class="post-comments">
                             <!-- comment -->
