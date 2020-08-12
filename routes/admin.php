@@ -5,9 +5,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'admin'], function () {
-    
+
+    // Main Admin Panel Page Route    
+    Route::get('/', function () {
+        return view("admin.layouts.main");
+    });
+
     // Admin Panel Posts Routes
-    Route::get('/', 'PostsController@adminIndex');
     Route::get('posts', 'PostsController@adminPosts')->name('adminPosts');
     Route::get('posts/create', 'PostsController@create')->name('adminCreatePost');
     Route::post('posts/store', 'PostsController@store')->name('adminStorePost');
@@ -16,7 +20,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('posts/{id}/delete', 'PostsController@destroy')->name('adminDeletePost');
 
     // Admin Panel Categories Routes
-    Route::get('/', 'CategoriesController@adminIndex');
     Route::get('categories', 'CategoriesController@adminCategories')->name('adminCategories');
     Route::get('categories/create', 'CategoriesController@create')->name('adminCreateCategory');
     Route::post('categories/store', 'CategoriesController@store')->name('adminStoreCategory');
@@ -25,7 +28,6 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('categories/{id}/delete', 'CategoriesController@destroy')->name('adminDeleteCategory');
 
     // Admin Panel Comments Routes Goes Here
-    Route::get('comments', function() {
-
+    Route::get('comments', function () {
     })->name('adminComments');
 });

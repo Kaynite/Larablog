@@ -100,11 +100,6 @@ class PostsController extends Controller
         return back()->with(["message" => "Post was Deleted Successfully"]);
     }
 
-    public function adminIndex()
-    {
-        return view("admin.layouts.main");
-    }
-
     public function adminPosts()
     {
         $posts = Post::select("id", "title", "category_id", "author", "views", "created_at")

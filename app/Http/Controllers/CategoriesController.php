@@ -23,7 +23,6 @@ class CategoriesController extends Controller
 
     public function show($id)
     {
-
         /*
         Note: Replaced this code with the code below
         $category = Category::find($id);
@@ -40,28 +39,24 @@ class CategoriesController extends Controller
 
     public function edit($id)
     {
+        $category = Category::findOrFail($id);
+        return $category;
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //
+    }
+
+
+    public function adminCategories()
+    {
+        $categories = Category::get();
+        return $categories;
     }
 }
