@@ -17,6 +17,8 @@ class PostsController extends Controller
         return view("blog")->with(["posts" => $posts, "hotPosts" => $hotPosts]);
     }
 
+
+
     public function create()
     {
         $categories = Category::get();
@@ -61,10 +63,10 @@ class PostsController extends Controller
         $categories = Category::get();
         $post = Post::findOrFail($id);
         return view("admin.editpost")
-        ->with([
-            "post" => $post,
-            "categories" => $categories
-        ]);
+            ->with([
+                "post" => $post,
+                "categories" => $categories
+            ]);
     }
 
     public function update(Request $request, $id)
@@ -98,11 +100,15 @@ class PostsController extends Controller
         return back()->with(["message" => "Post was Deleted Successfully"]);
     }
 
+    public function adminIndex()
+    {
+        return view("admin.layouts.main");
+    }
 
     public function adminPosts()
     {
         $posts = Post::select("id", "title", "category_id", "author", "views", "created_at")
-        ->orderBy("id", "desc")->get();
+            ->orderBy("id", "desc")->get();
 
         return view("admin.posts")->with("posts", $posts);
     }

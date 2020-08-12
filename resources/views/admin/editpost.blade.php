@@ -24,6 +24,9 @@
                     <div class="col-sm-12">
                         <label class="col-form-label" for="postTitle">Title</label>
                         <input type="text" name="title" class="form-control" id="postTitle" placeholder="Post Title" value="{{ $post->title }}">
+                        @error('title')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="form-group row">
@@ -32,6 +35,9 @@
                         <textarea name="body" id="postBody">
                             {{ $post->body }}
                         </textarea>
+                        @error('body')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="form-group row">
