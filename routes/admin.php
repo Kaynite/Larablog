@@ -2,8 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
-
 Route::group(['prefix' => 'admin'], function () {
 
     // Main Admin Panel Page Route    
