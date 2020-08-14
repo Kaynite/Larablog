@@ -11,8 +11,7 @@
 	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css')}}" />
 
-	<title>Callie HTML Template</title>
-
+	<title>Larablog @hasSection('title') | @yield('title') @endif</title>
 </head>
 
 <body>
@@ -312,7 +311,7 @@
 				<div class="row">
 					<div class="col-md-10">
 						<div class="post-category">
-							<a href="category.html">{{ $post->category->name }}</a>
+							<a href="{{ route('showCategory', $post->category->id) }}">{{ $post->category->name }}</a>
 						</div>
 						<h1>{{ $post->title }}</h1>
 						<ul class="post-meta">
@@ -340,5 +339,4 @@
 	<script src="{{ asset('js/main.js')}}"></script>
 
 </body>
-
 </html>

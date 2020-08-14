@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
-use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CategoriesController extends Controller
 {
@@ -14,11 +14,27 @@ class CategoriesController extends Controller
 
     public function create()
     {
-        return view("admin.create");
+        return view("admin.createcategory");
     }
 
     public function store(Request $request)
     {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|min:3'
+            ]
+        );
+        if($validator->fails()) {
+            return back()->withErrors($validator)->withInput($request->all());
+        }
+        Category::create([
+            'name' => $request->name
+        ]);
+        return redirect()->route('adminCategories')->with([
+            'success' => 'Category was Created Successfully'
+        ]);
+        
     }
 
     public function show($id)
@@ -40,23 +56,40 @@ class CategoriesController extends Controller
     public function edit($id)
     {
         $category = Category::findOrFail($id);
-        return $category;
+        return view('admin.editcategory')->with('category', $category);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required|min:3'
+            ]
+        );
+        if($validator->fails()) {
+            return back()->withErrors($validator);
+        }
+        $category->update($request->all());
+        return redirect()->route('adminCategories')->with([
+            'success' => 'Category was Updated Successfully'
+        ]);
     }
 
     public function destroy($id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return redirect()->route('adminCategories')->with([
+            'success' => 'Category Deleted Successfully'
+        ]);
     }
 
 
     public function adminCategories()
     {
         $categories = Category::get();
-        return $categories;
+        return view('admin.categories')->with('categories', $categories);
     }
 }

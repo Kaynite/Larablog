@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
-use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CommentsController extends Controller
 {
@@ -34,12 +34,20 @@ class CommentsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($id)
+    public function store(Request $request, $post_id)
     {
+        $validator = Validator::make($request->all(), [
+            'message' => 'required',
+            'name' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator);
+        }
         Comment::create([
             "comment_body"  => request("message"),
             "comment_by"    => request("name"),
-            "post_id" => $id
+            "post_id"       => $post_id
         ]);
         return back();
     }
@@ -52,7 +60,9 @@ class CommentsController extends Controller
      */
     public function show($id)
     {
-        //
+        $comment = Comment::with('post')->find(1);
+
+        return $comment;
     }
 
     /**

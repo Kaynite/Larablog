@@ -7,30 +7,31 @@
             <div class="col-md-8">
                 <!-- Category Posts -->
                 <?php $posts = $category->posts ?>
-                @include('components.posts')
+                @include('components.posts') {{-- Requires "posts" variable --}}
             </div>
 
             <div class="col-md-4">
                 <!-- AD widget-->
-                @include('components.adwidget')
+                @include('widgets.ad')
 
                 <!-- Social widget -->
-                @include('components.socialwidget')
+                @include('widgets.social')
 
                 <!-- Category widget -->
-                @include('components.categorywidget')
+                @include('widgets.categories')
 
                 <!-- Newsletter widget -->
-                @include('components.newsletterwidget')
+                @include('widgets.newsletter')
 
                 <!-- Popular Posts widget -->
-                @include('components.popularpostswidget')
+                @include('widgets.popularposts')
 
                 <!-- Instagram Gallery widget -->
-                @include('components.instagramwidget')
+                @include('widgets.instagram')
 
                 <!-- Ad widget -->
-                @include('components.adwidget')
+                @include('widgets.ad')
+
 
             </div>
         </div>

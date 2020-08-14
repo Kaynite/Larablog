@@ -7,6 +7,7 @@
     <div class="card">
         <div class="card-block">
             <form action="{{ route("adminStorePost")}}" method="POST">
+                @csrf
                 <div class="form-group row">  
                     <div class="col-sm-12">
                         <label class="col-form-label" for="postTitle">Title</label>

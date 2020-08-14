@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     // Main Admin Panel Page Route    
     Route::get('/', function () {
@@ -28,4 +28,6 @@ Route::group(['prefix' => 'admin'], function () {
     // Admin Panel Comments Routes Goes Here
     Route::get('comments', function () {
     })->name('adminComments');
+    Route::get('comments/{id}', "CommentsController@show")->name("showComment");
+
 });
