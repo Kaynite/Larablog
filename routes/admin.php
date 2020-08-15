@@ -1,13 +1,18 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
+Route::group(['prefix' => 'admin'], function () {
+    Auth::routes();
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
 
     // Main Admin Panel Page Route    
     Route::get('/', function () {
         return view("admin.layouts.main");
-    });
+    })->name('adminMain');
 
     // Admin Panel Posts Routes
     Route::get('posts', 'PostsController@adminPosts')->name('adminPosts');
@@ -16,6 +21,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('posts/{id}/edit', 'PostsController@edit')->name('adminEditPost');
     Route::post('posts/{id}/update', 'PostsController@update')->name('adminUpdatePost');
     Route::get('posts/{id}/delete', 'PostsController@destroy')->name('adminDeletePost');
+
+    Route::get('user', function () {
+        return view('admin.showuser');
+    });
 
     // Admin Panel Categories Routes
     Route::get('categories', 'CategoriesController@adminCategories')->name('adminCategories');
@@ -29,5 +38,4 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('comments', function () {
     })->name('adminComments');
     Route::get('comments/{id}', "CommentsController@show")->name("showComment");
-
 });

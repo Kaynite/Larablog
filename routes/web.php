@@ -10,6 +10,4 @@ Route::get('category/{id}', "CategoriesController@show")->name("showCategory");
 
 Route::post('post/{id}/comment', "CommentsController@store")->name("storeComment");
 
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');

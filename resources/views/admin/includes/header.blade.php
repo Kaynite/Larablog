@@ -39,7 +39,7 @@
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
                             <img src="jpg/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
-                            <span>John Doe</span>
+                            <span>{{ Auth::user()->username }}</span>
                             <i class="feather icon-chevron-down"></i>
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu"
@@ -65,8 +65,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="auth-sign-in-social.html">
+                                <a href="#" 
+                                    onclick="event.preventDefault();
+                                    document.getElementById('logout-form').submit();">
                                     <i class="feather icon-log-out"></i> Logout
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
                                 </a>
                             </li>
                         </ul>
