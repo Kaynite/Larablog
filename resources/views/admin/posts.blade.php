@@ -28,7 +28,7 @@
                                     <td>{{ $post->id }}</td>
                                     <td>{{ $post->title }}</td>
                                     <td>{{ $post->category->name }}</td>
-                                    <td>{{ $post->author }}</td>
+                                    <td>{{ $post->postAuthor->username }}</td>
                                     <td>{{ $post->views }}</td>
                                     <td>{{ $post->created_at }}</td>
                                     <td>

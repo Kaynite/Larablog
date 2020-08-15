@@ -11,11 +11,11 @@
                 <div class="card card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="../../dist/img/user4-128x128.jpg"
+                            <img class="profile-user-img img-fluid img-circle" src="{{ isset(Auth::user()->image) ? asset('storage/users/' . Auth::user()->image) : asset('storage/users/default-user.jpg') }}"
                                 alt="User profile picture">
                         </div>
 
-                        <h3 class="profile-username text-center">Kareem Saber</h3>
+                        <h3 class="profile-username text-center mt-3 mb-0">Kareem Saber</h3>
 
                         <p class="text-muted text-center">Admin</p>
 
@@ -47,26 +47,30 @@
                     <div class="card-body">
                         <div class="tab-content">
                             <div class="tab-pane active" id="settings">
-                                <form class="form-horizontal" method="POST" action="">
+                                <form class="form-horizontal" method="POST" action="{{ route('updateUserData') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Username</label>
+                                        <label for="username" class="col-sm-2 col-form-label">Username</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputName" placeholder="Name" value="{{ Auth::user()->username }}">
+                                            <input type="text" class="form-control" name="username" id="username" placeholder="Name" value="{{ Auth::user()->username }}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                        <label for="userEmail" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email" value="{{ Auth::user()->email }}">
+                                            <input type="email" name="email" class="form-control" id="userEmail" placeholder="Email" value="{{ Auth::user()->email }}">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputExperience" class="col-sm-2 col-form-label">About</label>
+                                        <label for="userAbout" class="col-sm-2 col-form-label">About</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" id="inputExperience" name="about" placeholder="Experience" style="height: 101px;">
-                                                {{ Auth::user()->about }}
-                                            </textarea>
+                                            <textarea class="form-control" id="userAbout" name="about" placeholder="About" style="height: 101px;">{{ Auth::user()->about }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="userImage" class="col-sm-2 col-form-label">Profile Image</label>
+                                        <div class="col-sm-10">
+                                            <input type="file" name="image" class="form-control" id="userImage">
                                         </div>
                                     </div>
                                     <div class="form-group row">

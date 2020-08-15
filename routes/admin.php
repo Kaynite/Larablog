@@ -40,8 +40,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     })->name('adminComments');
     Route::get('comments/{id}', "CommentsController@show")->name("showComment");
 
-    // Profile Route
+    // Profile Routes
     Route::get('profile', function() {
         return view('admin.profile');
     })->name('adminProfile');
+    Route::post('profile/update', 'UsersController@updateProfile')->name('updateUserData');
 });

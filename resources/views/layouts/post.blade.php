@@ -315,7 +315,7 @@
 						</div>
 						<h1>{{ $post->title }}</h1>
 						<ul class="post-meta">
-							<li><a href="author.html">{{ $post->author }}</a></li>
+							<li><a href="author.html">{{ $post->postAuthor->username }}</a></li>
 							<li>{{ date("d F Y", strtotime($post->created_at)) }}</li>
 							<li><i class="fa fa-comments"></i> {{ $post->comments->count() }}</li>
 							<li><i class="fa fa-eye"></i> {{ $post->views }}</li>

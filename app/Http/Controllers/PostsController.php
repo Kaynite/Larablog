@@ -6,6 +6,7 @@ use App\Category;
 use App\Events\PostViews;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 
@@ -51,7 +52,7 @@ class PostsController extends Controller
             "title"         => $request->title,
             "body"          => $request->body,
             "category_id"   => $request->category_id,
-            "author"        => "Kareem",
+            "author"        => Auth::user()->id,
             "image"         => "",
             "hot"           => $request->hot
         ]);

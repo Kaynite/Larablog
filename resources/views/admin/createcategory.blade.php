@@ -5,7 +5,7 @@
 @section('pageContent')
     <div class="card">
         <div class="card-block">
-            <form action="{{ route("adminStoreCategory")}}" method="POST">
+            <form action="{{ route("adminStoreCategory")}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">  
                     <div class="col-sm-12">
@@ -14,6 +14,12 @@
                         @error('name')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label class="col-form-label">Category Cover</label>
+                        <input type="file" name="cover_image" class="form-control">
                     </div>
                 </div>
                 <div class="form-group text-center">

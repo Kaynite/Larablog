@@ -304,7 +304,7 @@
 
 		<!-- PAGE HEADER -->
 		<div class="page-header">
-			<div class="page-header-bg" style="background-image: url('/img/header-2.jpg');" data-stellar-background-ratio="0.5"></div>
+			<div class="page-header-bg" style="background-image: url('{{ asset('storage/categories/' . $category->cover_image) }}');" data-stellar-background-ratio="0.5"></div>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-offset-1 col-md-10 text-center">
@@ -319,7 +319,6 @@
     
     @yield('content')
 
-
     @include('includes.footer')
 
 	<!-- jQuery Plugins -->
@@ -327,7 +326,6 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script src="js/jquery.stellar.min.js"></script>
 	<script src="js/main.js"></script>
-
 </body>
 
 </html>

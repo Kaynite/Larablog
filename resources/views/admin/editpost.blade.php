@@ -51,10 +51,13 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-2 col-form-label">Hot Post?</label>
-                    <div class="col-sm-10">
-                        <input type="hidden" name="hot" value="0">
-                        <input type="checkbox" name="hot" class="js-single" @if($post->hot) checked @endif value="1" style="display: none;" data-switchery="false">
+                    <div class="col-sm-12">
+                        <label class="col-form-label">Hot Post?</label>
+                        <div class="px-1 py-1">
+                            <input type="hidden" name="hot" value="0">
+                            <input type="checkbox" name="hot" class="js-single" @if($post->hot) checked @endif value="1" style="display: none;" data-switchery="false">
+                        </div>
+                        
                     </div>
                 </div>
                 <div class="form-group text-center">
