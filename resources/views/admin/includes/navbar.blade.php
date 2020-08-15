@@ -15,7 +15,7 @@
             
             <div class="pcoded-navigation-label">Admin Panel</div>
             <ul class="pcoded-item pcoded-left-item">
-                <li class="">
+                <li class="{{ Route::currentRouteNamed('adminPosts', 'adminEditPost') ? 'active' : Null }}">
                     <a href="{{ route("adminPosts") }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="feather icon-file-text"></i>
@@ -23,7 +23,7 @@
                         <span class="pcoded-mtext">Posts</span>
                     </a>
                 </li>
-                <li class="">
+                <li class="{{ Route::currentRouteNamed('adminCategories', 'adminEditCategory') ? 'active' : Null }}">
                     <a href="{{ route("adminCategories") }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="feather icon-folder"></i>

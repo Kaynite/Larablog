@@ -1,5 +1,7 @@
 @extends('layouts.category')
 
+@section('title', $category->name)
+
 @section('content')
 <div class="section">
     <div class="container">

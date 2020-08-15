@@ -7,9 +7,16 @@ use App\Events\PostViews;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 
 class PostsController extends Controller
 {
+
+    public function __construct()
+    {
+        View::share('categories', Category::all());
+    }
+
     public function index()
     {
         $posts = Post::orderBy("id", "desc")->get();
@@ -53,9 +60,11 @@ class PostsController extends Controller
 
     public function show($id)
     {
+        $categories = Category::withCount('posts')->get();
         $post = Post::findOrFail($id);
         event(new PostViews($post)); // Post Views Event
-        return view("post", compact("post"));
+        return view("post")->with('post', $post)
+        ->with('categories', $categories);
     }
 
     public function edit($id)

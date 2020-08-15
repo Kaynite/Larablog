@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 
 class CategoriesController extends Controller
 {
-    public function getAll()
+
+
+    public function __construct()
     {
+        View::share('categories', Category::withCount('posts')->get());
     }
 
     public function create()

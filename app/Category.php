@@ -12,9 +12,13 @@ class Category extends Model
 
     public $timestamps = false;
 
-
     public function posts()
     {
         return $this->hasMany("App\Post")->orderBy("id", "desc");
+    }
+
+    public function postsCount()
+    {
+        return $this->hasMany("App\Post")->count();
     }
 }

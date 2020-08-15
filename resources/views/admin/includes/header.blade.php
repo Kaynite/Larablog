@@ -50,7 +50,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="{{ route('adminProfile') }}">
                                     <i class="feather icon-user"></i> Profile
                                 </a>
                             </li>

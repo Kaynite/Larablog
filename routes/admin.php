@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+// Authentication Routes
 Route::group(['prefix' => 'admin'], function () {
     Auth::routes();
 });
@@ -38,4 +39,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('comments', function () {
     })->name('adminComments');
     Route::get('comments/{id}', "CommentsController@show")->name("showComment");
+
+    // Profile Route
+    Route::get('profile', function() {
+        return view('admin.profile');
+    })->name('adminProfile');
 });

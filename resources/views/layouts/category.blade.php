@@ -9,7 +9,8 @@
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CMuli:400,700" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}" />
 	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
-    <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css')}}" />
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/style.css')}}" />
+	<title>Larablog @hasSection('title') | @yield('title') @endif</title>
 </head>
 
 <body>

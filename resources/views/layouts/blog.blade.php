@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css')}}" />
 
-	<title>Callie HTML Template</title>
+	<title>Larablog</title>
 </head>
 
 <body>

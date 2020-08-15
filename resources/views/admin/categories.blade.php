@@ -2,6 +2,8 @@
 
 @section('pageTitle', 'Categories')
 
+@section('pageDescription', 'Here You can see all Your Categories')
+
 @section('pageContent')
 
     @if(session("success"))
