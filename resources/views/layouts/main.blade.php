@@ -11,45 +11,37 @@
 	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css')}}" />
 
-	<title>Larablog</title>
+	<title>Larablog @hasSection('title') | @yield('title') @endif</title>
+
 </head>
 
 <body>
-    @include('includes.header')
 
-	@yield('hotPosts')
-	@yield('content')
+	<header id="header">
+		@include('includes.nav')
+        @yield('pageHeader')
+	</header>
 
-	{{-- @include('includes.recentPosts') --}}
-
-	<div class="section">
-		<!-- container -->
+    <div class="section">
 		<div class="container">
-			<!-- row -->
 			<div class="row">
-				<!-- ad -->
-				<div class="col-md-12 section-row text-center">
-					<a href="#" style="display: inline-block;margin: auto;">
-						<img class="img-responsive" src="./img/ad-2.jpg" alt="">
-					</a>
+				<div class="col-md-8">
+                    @yield('posts')
 				</div>
-				<!-- /ad -->
+				<div class="col-md-4">
+                    @yield('widgets')
+                </div>
 			</div>
-			<!-- /row -->
 		</div>
-		<!-- /container -->
 	</div>
 
-	@yield('posts')
-
-	@include('includes.footer')
+	<!-- Footer -->
+    @include('includes.footer')
 
 	<!-- jQuery Plugins -->
 	<script src="{{ asset('js/jquery.min.js')}}"></script>
 	<script src="{{ asset('js/bootstrap.min.js')}}"></script>
 	<script src="{{ asset('js/jquery.stellar.min.js')}}"></script>
 	<script src="{{ asset('js/main.js')}}"></script>
-
 </body>
-
 </html>

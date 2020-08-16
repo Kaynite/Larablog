@@ -1,13 +1,7 @@
 @extends('layouts.main')
 
-@section('title', $category->name)
-
-@section('pageHeader')
-    @include('includes.categoryHeader')
-@endsection
-
 @section('posts')
-    <?php $posts = $category->posts ?>
+    <?php $posts = $author->posts ?>
     @include('components.posts')
 @endsection
 
@@ -16,7 +10,12 @@
     @include('widgets.social')
     @include('widgets.categories')
     @include('widgets.newsletter')
-    @include('widgets.popularposts')
-    @include('widgets.instagram')
-    @include('widgets.ad')
+@endsection
+
+@section('pageHeader')
+    @include('includes.authorHeader')
+@endsection
+
+@section('title')
+    {{ $author->username }}
 @endsection

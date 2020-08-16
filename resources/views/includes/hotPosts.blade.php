@@ -14,7 +14,7 @@
                         </div>
                         <h3 class="post-title"><a href="{{ route("showPost", $hotPosts[0]->id) }}">{{ $hotPosts[0]->title }}</a></h3>
                         <ul class="post-meta">
-                            <li><a href="author.html">{{ $hotPosts[0]->author }}</a></li>
+                            <li><a href="{{ route('showAuthor', $hotPosts[0]->postAuthor->id) }}">{{ $hotPosts[0]->postAuthor->username }}</a></li>
                             <li>{{ date("d F Y", strtotime($hotPosts[0]->created_at)) }}</li>
                         </ul>
                     </div>
@@ -31,7 +31,7 @@
                         </div>
                         <h3 class="post-title"><a href="{{ route("showPost", $hotPosts[1]->id) }}">{{ $hotPosts[1]->title }}</a></h3>
                         <ul class="post-meta">
-                            <li><a href="author.html">{{ $hotPosts[1]->author }}</a></li>
+                            <li><a href="{{ route('showAuthor', $hotPosts[1]->postAuthor->id) }}">{{ $hotPosts[1]->postAuthor->username }}</a></li>
                             <li>{{ date("d F Y", strtotime($hotPosts[1]->created_at)) }}</li>
                         </ul>
                     </div>
@@ -44,7 +44,7 @@
                         </div>
                         <h3 class="post-title"><a href="{{ route("showPost", $hotPosts[2]->id) }}">{{ $hotPosts[2]->title }}</a></h3>
                         <ul class="post-meta">
-                            <li><a href="author.html">{{ $hotPosts[2]->author }}</a></li>
+                            <li><a href="{{ route('showAuthor', $hotPosts[2]->postAuthor->id) }}">{{ $hotPosts[2]->postAuthor->username }}</a></li>
                             <li>{{ date("d F Y", strtotime($hotPosts[2]->created_at)) }}</li>
                         </ul>
                     </div>

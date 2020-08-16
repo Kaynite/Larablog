@@ -15,7 +15,7 @@ class PostsController extends Controller
 
     public function __construct()
     {
-        View::share('categories', Category::all());
+        View::share('categories', Category::withCount('posts')->get());
     }
 
     public function index()

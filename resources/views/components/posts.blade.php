@@ -8,7 +8,7 @@
             </div>
             <h3 class="post-title"><a href="{{ route("showPost", $post->id) }}">{{ $post->title }}</a></h3>
             <ul class="post-meta">
-                <li><a href="author.html">{{ $post->postAuthor->username }}</a></li>
+                <li><a href="{{ route('showAuthor', $post->postAuthor->id) }}">{{ $post->postAuthor->username }}</a></li>
                 <li>{{ date("d F Y", strtotime($post->created_at)) }}</li>
             </ul>
             @if(strlen(strip_tags($post->body)) > 150)

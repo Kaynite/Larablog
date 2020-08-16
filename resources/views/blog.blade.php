@@ -1,9 +1,13 @@
-@extends('layouts.blog')
+@extends('layouts.main')
 
 @section('posts')
-    @include('includes.posts')
+    @include('components.posts')
 @endsection
 
-@section('hotPosts')
+@section('widgets')
+    @include('widgets.instagram')
+@endsection
+
+@section('pageHeader')
     @include('includes.hotPosts')
 @endsection
