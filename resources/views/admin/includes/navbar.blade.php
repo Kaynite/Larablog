@@ -4,7 +4,7 @@
             <div class="pcoded-navigation-label">Blog</div>
             <ul class="pcoded-item pcoded-left-item">
                 <li class="">
-                    <a href="{{ route("main") }}" class="waves-effect waves-dark">
+                    <a href="{{ route("home") }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="feather icon-eye"></i>
                         </span>
