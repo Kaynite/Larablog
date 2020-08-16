@@ -62,27 +62,32 @@ class PostsController extends Controller
             "image"         => $image,
             "hot"           => $request->hot
         ]);
-        return redirect()->route("adminPosts");
+        return redirect()->route("adminPosts")->with('success', 'Post was Created Successfully');
     }
 
     public function show($id)
     {
-        $categories = Category::withCount('posts')->get();
         $post = Post::findOrFail($id);
         event(new PostViews($post)); // Post Views Event
-        return view("post")->with('post', $post)
-        ->with('categories', $categories);
+        $prevPost = $this->prevPost($id);
+        $nextPost = $this->nextPost($id);
+        $relatedPosts = $this->relatedPosts($post->category_id);
+        return view("post")->with([
+            "post"          => $post,
+            "prevPost"      => $prevPost,
+            "nextPost"      => $nextPost,
+            "relatedPosts"  => $relatedPosts
+        ]);
     }
 
     public function edit($id)
     {
         $categories = Category::get();
         $post = Post::findOrFail($id);
-        return view("admin.editpost")
-            ->with([
-                "post" => $post,
-                "categories" => $categories
-            ]);
+        return view("admin.editpost")->with([
+            "post"          => $post,
+            "categories"    => $categories,
+        ]);
     }
 
     public function update(Request $request, $id)
@@ -139,5 +144,23 @@ class PostsController extends Controller
             ->orderBy("id", "desc")->get();
 
         return view("admin.posts")->with("posts", $posts);
+    }
+
+    private function prevPost($id) {
+        return Post::select('id', 'title', 'image')
+        ->where('id', '<', $id)
+        ->orderBy('id','desc')
+        ->first();
+    }
+
+    private function nextPost($id) {
+        return Post::select('id', 'title', 'image')
+        ->where('id', '>', $id)
+        ->orderBy('id')
+        ->first();
+    }
+
+    private function relatedPosts($categoryId) {
+        return Post::inRandomOrder('id', 'title', 'image', 'created_at', 'category_id', 'author')->select()->where('category_id', $categoryId)->limit(3)->get();
     }
 }

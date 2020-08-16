@@ -41,17 +41,23 @@
     <!-- post nav -->
     <div class="section-row">
         <div class="post-nav">
+
+            @if($prevPost)
             <div class="prev-post">
-                <a class="post-img" href="blog-post.html"><img src="/img/widget-8.jpg" alt=""></a>
-                <h3 class="post-title"><a href="#">Sed ut perspiciatis, unde omnis iste natus error sit</a></h3>
+                <a class="post-img" href="{{ route('showPost', $prevPost->id) }}"><img src="{{ asset('/storage/posts/' . $prevPost->image) }}" alt=""></a>
+                <h3 class="post-title"><a href="{{ route('showPost', $prevPost->id) }}">{{ $prevPost->title }}</a></h3>
                 <span>Previous post</span>
             </div>
+            @endif
 
+            @if($nextPost)
             <div class="next-post">
-                <a class="post-img" href="blog-post.html"><img src="/img/widget-10.jpg" alt=""></a>
-                <h3 class="post-title"><a href="#">Postea senserit id eos, vivendo periculis ei qui</a></h3>
+                <a class="post-img" href="{{ route('showPost', $nextPost->id) }}"><img src="{{ asset('/storage/posts/' . $nextPost->image) }}" alt=""></a>
+                <h3 class="post-title"><a href="{{ route('showPost', $nextPost->id) }}">{{ $nextPost->title }}</a></h3>
                 <span>Next post</span>
             </div>
+            @endif
+
         </div>
     </div>
     <!-- /post nav  -->
@@ -64,7 +70,7 @@
         <div class="author media">
             <div class="media-left">
                 <a href="author.html">
-                    <img class="author-img media-object" src="{{ asset('storage/users/' . $post->postAuthor->image) }}" alt="">
+                    <img class="author-img media-object" src="{{ $post->postAuthor->image ? asset('storage/users/' . $post->postAuthor->image) : asset('storage/users/default-user.jpg') }}" alt="">
                 </a>
             </div>
             <div class="media-body">
@@ -86,61 +92,24 @@
             <h3 class="title">Related Posts</h3>
         </div>
         <div class="row">
-            <!-- post -->
+            @foreach ($relatedPosts as $rPost)
             <div class="col-md-4">
                 <div class="post post-sm">
-                    <a class="post-img" href="blog-post.html"><img src="/img/post-4.jpg" alt=""></a>
+                    <a class="post-img" href="{{ route('showPost', $rPost->id) }}"><img src="{{ asset('storage/posts/' . $rPost->image) }}" alt=""></a>
                     <div class="post-body">
                         <div class="post-category">
-                            <a href="category.html">Health</a>
+                            <a href="{{ route('showCategory', $rPost->category->id) }}">{{ $rPost->category->name }}</a>
                         </div>
-                        <h3 class="post-title title-sm"><a href="blog-post.html">Postea senserit id eos, vivendo periculis ei qui</a></h3>
+                        <h3 class="post-title title-sm"><a href="{{ route('showPost', $rPost->id) }}">{{ $rPost->title }}</a></h3>
                         <ul class="post-meta">
-                            <li><a href="author.html">John Doe</a></li>
+                            <li><a href="{{ route('showAuthor', $rPost->postAuthor->id) }}">{{ $rPost->postAuthor->username }}</a></li>
                             <li>20 April 2018</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <!-- /post -->
+            @endforeach
 
-            <!-- post -->
-            <div class="col-md-4">
-                <div class="post post-sm">
-                    <a class="post-img" href="blog-post.html"><img src="/img/post-6.jpg" alt=""></a>
-                    <div class="post-body">
-                        <div class="post-category">
-                            <a href="category.html">Fashion</a>
-                            <a href="category.html">Lifestyle</a>
-                        </div>
-                        <h3 class="post-title title-sm"><a href="blog-post.html">Mel ut impetus suscipit tincidunt. Cum id ullum laboramus persequeris.</a></h3>
-                        <ul class="post-meta">
-                            <li><a href="author.html">John Doe</a></li>
-                            <li>20 April 2018</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- /post -->
-
-            <!-- post -->
-            <div class="col-md-4">
-                <div class="post post-sm">
-                    <a class="post-img" href="blog-post.html"><img src="/img/post-7.jpg" alt=""></a>
-                    <div class="post-body">
-                        <div class="post-category">
-                            <a href="category.html">Health</a>
-                            <a href="category.html">Lifestyle</a>
-                        </div>
-                        <h3 class="post-title title-sm"><a href="blog-post.html">Ne bonorum praesent cum, labitur persequeris definitionem quo cu?</a></h3>
-                        <ul class="post-meta">
-                            <li><a href="author.html">John Doe</a></li>
-                            <li>20 April 2018</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <!-- /post -->
         </div>
     </div>
     <!-- /related post -->

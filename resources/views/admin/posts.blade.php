@@ -3,6 +3,15 @@
 @section('pageTitle', 'Posts')
 
 @section('pageContent')
+
+    @if(session("success"))
+    <div class="alert alert-success background-success">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <i class="icofont icofont-close-line-circled text-white background-success"></i>
+        </button>
+        <strong>{{ session("success") }}</strong>
+    </div>
+    @endif
     <a href="{{ route("adminCreatePost") }}" class="btn btn-success mb-3"><i class="feather icon-plus"></i> Add New Post</a>
     <div class="row">
         <div class="col-sm-12">
