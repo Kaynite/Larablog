@@ -18,7 +18,7 @@
             <h5>Article Editor</h5>
         </div>
         <div class="card-block">
-            <form action="{{ route("adminUpdatePost", $post->id) }}" method="POST">
+            <form action="{{ route("adminUpdatePost", $post->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">  
                     <div class="col-sm-12">
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-10">
                         <label class="col-form-label" for="categories">Category</label>
                         <select class="form-control fill" name="category_id" id="categories">
                             @foreach ($categories as $category)
@@ -49,15 +49,24 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-2">
                         <label class="col-form-label">Hot Post?</label>
                         <div class="px-1 py-1">
                             <input type="hidden" name="hot" value="0">
                             <input type="checkbox" name="hot" class="js-single" @if($post->hot) checked @endif value="1" style="display: none;" data-switchery="false">
                         </div>
-                        
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-6">
+                        <img src="{{ asset('storage/posts/' . $post->image) }}" alt="Post Image" style="width:100%">
+                        <div class="">
+                            <label class="col-form-label">Update Post Image</label>
+                            <input type="file" name="image" class="form-control">
+                            @error('image')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <div class="form-group text-center">

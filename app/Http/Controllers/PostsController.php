@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Events\PostViews;
 use App\Post;
+use App\Traits\ImageUpload;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\View;
 
 class PostsController extends Controller
 {
+
+    use ImageUpload;
 
     public function __construct()
     {
@@ -21,7 +25,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::orderBy("id", "desc")->get();
-        $hotPosts = Post::select("id", "title", "author", "category_id", "created_at")->where("hot", 1)->limit(3)->orderBy("id", "desc")->get();
+        $hotPosts = Post::select("id", "title", "author", "category_id", "created_at", "image")->where("hot", 1)->limit(3)->orderBy("id", "desc")->get();
         return view("blog")->with(["posts" => $posts, "hotPosts" => $hotPosts]);
     }
 
@@ -40,20 +44,22 @@ class PostsController extends Controller
             [
                 "title"         => "required",
                 "body"          => "required",
-                "category_id"   => "required"
+                "category_id"   => "required",
+                "image"         => "image|required|max:1999"
             ]
         );
-
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput($request->all());
         }
+
+        $image = $this->handleImageUpload($request, 'image', 'public/posts');
 
         Post::create([
             "title"         => $request->title,
             "body"          => $request->body,
             "category_id"   => $request->category_id,
             "author"        => Auth::user()->id,
-            "image"         => "",
+            "image"         => $image,
             "hot"           => $request->hot
         ]);
         return redirect()->route("adminPosts");
@@ -89,7 +95,8 @@ class PostsController extends Controller
                     "title"         => "required",
                     "body"          => "required",
                     "category_id"   => "required",
-                    "hot"           => "numeric"
+                    "hot"           => "numeric",
+                    "image"         => "image|nullable"
                 ]
             );
         }
@@ -98,14 +105,30 @@ class PostsController extends Controller
             return back()->withErrors($validator);
         }
 
-        $post->update($request->all());
+        $image = $this->handleImageUpload($request, 'image', 'public/posts');
+
+        if ($image) {
+            Storage::delete("public/posts/" . $post->image);
+        } else {
+            $image = $post->image;
+        }
+        
+        $post->update([
+            "title"         => $request->title,
+            "body"          => $request->body,
+            "category_id"   => $request->category_id,
+            "image"         => $image,
+            "hot"           => $request->hot
+        ]);
+
         return redirect()->route("adminEditPost", $id)->with("success", "Post Updated Successfully");
     }
 
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-
+        
+        isset($post->image) ? Storage::delete("public/posts/" . $post->image) : "";
         $post->delete();
         return back()->with(["message" => "Post was Deleted Successfully"]);
     }

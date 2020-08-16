@@ -7,7 +7,7 @@
             <div class="col-md-8 hot-post-left">
                 <!-- post -->
                 <div class="post post-thumb">
-                    <a class="post-img" href="{{ route("showPost", $hotPosts[0]->id) }}"><img src="/img/hot-post-2.jpg" alt=""></a>
+                    <a class="post-img" href="{{ route("showPost", $hotPosts[0]->id) }}"><img src="{{ asset('storage/posts/' . $hotPosts[0]->image) }}" alt=""></a>
                     <div class="post-body">
                         <div class="post-category">
                             <a href="{{ route("showCategory", $hotPosts[0]->category->id) }}">{{ $hotPosts[0]->category->name }}</a>
@@ -24,7 +24,7 @@
             <div class="col-md-4 hot-post-right">
                 <!-- post -->
                 <div class="post post-thumb">
-                    <a class="post-img" href="{{ route("showPost", $hotPosts[1]->id) }}"><img src="/img/hot-post-2.jpg" alt=""></a>
+                    <a class="post-img" href="{{ route("showPost", $hotPosts[1]->id) }}"><img src="{{ asset('storage/posts/' . $hotPosts[1]->image) }}" alt=""></a>
                     <div class="post-body">
                         <div class="post-category">
                             <a href="{{ route("showCategory", $hotPosts[1]->category->id) }}">{{ $hotPosts[1]->category->name }}</a>
@@ -37,7 +37,7 @@
                     </div>
                 </div>
                 <div class="post post-thumb">
-                    <a class="post-img" href="{{ route("showPost", $hotPosts[2]->id) }}"><img src="/img/hot-post-2.jpg" alt=""></a>
+                    <a class="post-img" href="{{ route("showPost", $hotPosts[2]->id) }}"><img src="{{ asset('storage/posts/' . $hotPosts[2]->image) }}" alt=""></a>
                     <div class="post-body">
                         <div class="post-category">
                             <a href="{{ route("showCategory", $hotPosts[2]->category->id) }}">{{ $hotPosts[2]->category->name }}</a>
