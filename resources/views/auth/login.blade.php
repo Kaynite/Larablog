@@ -6,15 +6,6 @@
 <head>
     <title>Larablog Admin Panel | Login</title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="description" content="Admindek Bootstrap admin template made using Bootstrap 4 and it has huge amount of ready made feature, UI components, pages which completely fulfills any dashboard needs." />
-    <meta name="keywords" content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
-    <meta name="author" content="colorlib" />
-
-    <link rel="icon" href="https://colorlib.com/polygon/admindek/files/assets/images/favicon.ico" type="image/x-icon">
-
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
 
@@ -103,11 +94,21 @@
                                     <input type="text" name="username" class="form-control" required="">
                                     <span class="form-bar"></span>
                                     <label class="float-label">Username</label>
+                                    @error('username')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group form-primary">
                                     <input type="password" name="password" class="form-control" required="">
                                     <span class="form-bar"></span>
                                     <label class="float-label">Password</label>
+                                    @error('password')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="row m-t-25 text-left">
                                     <div class="col-12">
@@ -118,9 +119,11 @@
                                                 <span class="text-inverse">Remember me</span>
                                             </label>
                                         </div>
-                                        <div class="forgot-phone text-right float-right">
-                                            <a href="auth-reset-password.html" class="text-right f-w-600"> Forgot Password?</a>
-                                        </div>
+                                        @if (Route::has('password.request'))
+                                            <div class="forgot-phone text-right float-right">
+                                                <a href="{{ route('password.request') }}" class="text-right f-w-600"> Forgot Password?</a>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="row m-t-30">
@@ -128,7 +131,9 @@
                                         <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">LOGIN</button>
                                     </div>
                                 </div>
-                                <p class="text-inverse text-left">Don't have an account?<a href="auth-sign-up-social.html"> <b>Register here </b></a>for free!</p>
+                                @if (Route::has('register'))
+                                    <p class="text-inverse text-left">Don't have an account?<a href="{{ route('register') }}"> <b>Register here </b></a>for free!</p>
+                                @endif
                             </div>
                         </div>
                     </form>
