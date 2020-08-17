@@ -22,14 +22,16 @@ class PostsController extends Controller
         View::share('categories', Category::withCount('posts')->get());
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::orderBy("id", "desc")->get();
+        if ($request->s) {
+            $posts = $this->search($request->s);
+        } else {
+            $posts = Post::orderBy("id", "desc")->get();
+        }
         $hotPosts = Post::select("id", "title", "author", "category_id", "created_at", "image")->where("hot", 1)->limit(3)->orderBy("id", "desc")->get();
         return view("blog")->with(["posts" => $posts, "hotPosts" => $hotPosts]);
     }
-
-
 
     public function create()
     {
@@ -117,7 +119,7 @@ class PostsController extends Controller
         } else {
             $image = $post->image;
         }
-        
+
         $post->update([
             "title"         => $request->title,
             "body"          => $request->body,
@@ -132,7 +134,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        
+
         isset($post->image) ? Storage::delete("public/posts/" . $post->image) : "";
         $post->delete();
         return back()->with(["message" => "Post was Deleted Successfully"]);
@@ -142,25 +144,35 @@ class PostsController extends Controller
     {
         $posts = Post::select("id", "title", "category_id", "author", "views", "created_at")
             ->orderBy("id", "desc")->get();
-
         return view("admin.posts")->with("posts", $posts);
     }
 
-    private function prevPost($id) {
-        return Post::select('id', 'title', 'image')
-        ->where('id', '<', $id)
-        ->orderBy('id','desc')
-        ->first();
+    public function search($word)
+    {
+        if (!$word) {
+            return abort(404);
+        }
+        return $posts = Post::where('title', 'like', "%$word%")->get();
     }
 
-    private function nextPost($id) {
+    private function prevPost($id)
+    {
         return Post::select('id', 'title', 'image')
-        ->where('id', '>', $id)
-        ->orderBy('id')
-        ->first();
+            ->where('id', '<', $id)
+            ->orderBy('id', 'desc')
+            ->first();
     }
 
-    private function relatedPosts($categoryId) {
+    private function nextPost($id)
+    {
+        return Post::select('id', 'title', 'image')
+            ->where('id', '>', $id)
+            ->orderBy('id')
+            ->first();
+    }
+
+    private function relatedPosts($categoryId)
+    {
         return Post::inRandomOrder('id', 'title', 'image', 'created_at', 'category_id', 'author')->select()->where('category_id', $categoryId)->limit(3)->get();
     }
 }
