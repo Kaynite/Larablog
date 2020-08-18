@@ -175,4 +175,9 @@ class PostsController extends Controller
     {
         return Post::inRandomOrder('id', 'title', 'image', 'created_at', 'category_id', 'author')->select()->where('category_id', $categoryId)->limit(3)->get();
     }
+
+
+    public function testScopes() {
+        return Post::get();
+    }
 }
