@@ -19,6 +19,7 @@ class CreatePostsTable extends Migration
             $table->text('body');
             $table->foreignId('author');
             $table->foreignId('category_id');
+            $table->string('image')->nullable();
             $table->integer('views')->default(0);
             $table->boolean('hot')->default(0);
             $table->timestamps();
