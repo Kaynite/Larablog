@@ -17,13 +17,13 @@ class CreatePostsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title');
             $table->text('body');
-            $table->foreignId('author');
-            $table->foreignId('category_id');
+            $table->unsignedBigInteger('author');
+            $table->unsignedBigInteger('category_id');
             $table->string('image')->nullable();
             $table->integer('views')->default(0);
             $table->boolean('hot')->default(0);
             $table->timestamps();
-            $table->foreign('author')->references('id')->on('user');
+            $table->foreign('author')->references('id')->on('users');
             $table->foreign('category_id')->references('id')->on('categories');
         });
     }
