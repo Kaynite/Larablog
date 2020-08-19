@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Category::class, function (Faker $faker) {
     return [
-        'name' => $faker->word,
+        'name'          => $faker->word,
+        'cover_image'   => 'image' . $faker->numberBetween(1, 20) . '.jpg',
     ];
 });
