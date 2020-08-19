@@ -16,8 +16,14 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title');
-            $table->longText('body');
+            $table->text('body');
+            $table->foreignId('author');
+            $table->foreignId('category_id');
+            $table->integer('views')->default(0);
+            $table->boolean('hot')->default(0);
             $table->timestamps();
+            $table->foreign('author')->references('id')->on('user');
+            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

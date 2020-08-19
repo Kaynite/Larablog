@@ -17,8 +17,7 @@ class CreateRepliesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('content');
-            $table->bigInteger('comment_id')->unsigned();
-
+            $table->foreignId('comment_id');
             $table->foreign('comment_id')->references('id')->on('comments');
             $table->timestamps();
         });
