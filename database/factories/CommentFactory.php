@@ -11,6 +11,7 @@ $factory->define(Comment::class, function (Faker $faker) {
         'comment_by'    => $faker->firstName,
         'post_id'       => $faker->numberBetween(1, 50),
         'email'         => $faker->safeEmail,
-        'website'       => $faker->domainName
+        'website'       => $faker->domainName,
+        'approved'      => $faker->randomElement([0, 1])
     ];
 });

@@ -43,8 +43,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('comments/{id}/edit', "CommentsController@edit")->name("adminEditComment");
     Route::post('comments/{id}/update', 'CommentsController@update')->name('adminUpdateComment');
     Route::get('comments/{id}/approve', 'CommentsController@approve')->name('adminApproveComment');
+    Route::get('comments/{id}/restore', 'CommentsController@restore')->name('adminRestoreComment');
 
     Route::get('comments/{id}/delete', 'CommentsController@destroy')->name('adminDeleteComment');
+    Route::get('comments/{id}/forcedelete', 'CommentsController@forceDelete')->name('adminForceDeleteComment');
 
 
     // Profile Routes

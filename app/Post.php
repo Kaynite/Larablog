@@ -13,7 +13,7 @@ class Post extends Model
     }
 
     public function comments() {
-        return $this->hasMany("App\Comment");
+        return $this->hasMany("App\Comment")->where('approved', 1);
     }
 
     public function postAuthor() {

@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="{{ asset('css/font-awesome.min.css') }}">
     <link type="text/css" rel="stylesheet" href="{{ asset('css/style.css')}}" />
 
-	<title>Larablog @hasSection('title') | @yield('title') @endif</title>
+	<title>{{ config('app.name') }} @hasSection('title') | @yield('title') @endif</title>
 
 </head>
 

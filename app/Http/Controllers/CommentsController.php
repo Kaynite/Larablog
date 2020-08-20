@@ -18,7 +18,7 @@ class CommentsController extends Controller
         $comments = Comment::approved()
             ->orderBy('id', 'desc')
             ->paginate(10);
-        return view('admin.comments')->with('comments', $comments);
+        return view('admin.comments.comments')->with('comments', $comments);
     }
 
     public function pending()
@@ -26,15 +26,15 @@ class CommentsController extends Controller
         $comments = Comment::pending()
             ->orderBy('id', 'desc')
             ->paginate(10);
-        return view('admin.pendingcomments')->with('comments', $comments);
+        return view('admin.comments.pendingcomments')->with('comments', $comments);
     }
 
     public function trash()
     {
         $comments = Comment::onlyTrashed()
-            ->orderBy('id', 'desc')
+            ->orderBy('deleted_at', 'desc')
             ->paginate(10);
-        return view('admin.comments')->with('comments', $comments);
+        return view('admin.comments.trashcomments')->with('comments', $comments);
     }
 
     public function store(Request $request, $post_id)
@@ -48,9 +48,11 @@ class CommentsController extends Controller
             return back()->withErrors($validator);
         }
         Comment::create([
-            "comment_body"  => request("message"),
-            "comment_by"    => request("name"),
-            "post_id"       => $post_id
+            "comment_body"  => $request->message,
+            "comment_by"    => $request->name,
+            "email"         => $request->email,
+            "website"       => $request->website,
+            "post_id"       => $post_id,
         ]);
         return back();
     }
@@ -64,16 +66,23 @@ class CommentsController extends Controller
     public function edit($id)
     {
         $comment = Comment::findOrFail($id);
-        return view('admin.editcomment')->with('comment', $comment);
+        return view('admin.comments.editcomment')->with('comment', $comment);
     }
 
     public function approve($id)
     {
-        $comment = Comment::findOrFail($id);
+        $comment = Comment::pending()->findOrFail($id);
         $comment->approved = 1;
         $comment->save();
         return redirect()->route('adminCommentsPending')
             ->with('message', "Comment #{$comment->id} Approved Successfully");
+    }
+
+    public function restore($id)
+    {
+        $comment = Comment::onlyTrashed()->findOrFail($id);
+        $comment->restore();
+        return redirect()->route('adminComments');
     }
 
     /**
@@ -85,7 +94,26 @@ class CommentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        $vaildator = Validator::make($request->all(),
+        [
+            'comment_by'    => 'required',
+            'comment_body'  => 'required'
+        ]);
+
+        if ($vaildator->fails()) {
+            return back()->withErrors($vaildator);
+        } else {
+            $comment->update([
+                'comment_by'    => $request->comment_by,
+                'comment_body'  => $request->comment_body,
+                'email'         => $request->email,
+                'website'         => $request->website,
+            ]);
+            return redirect()
+                ->route('adminComments')
+                ->with('message', 'Comment was edited successfully');
+        }
     }
 
     /**
@@ -96,12 +124,16 @@ class CommentsController extends Controller
      */
     public function destroy($id)
     {
-        $comment = Comment::find($id);
-        if ($comment) {
-            $comment->delete();
-            return back();
-        } else {
-            return back();
-        }
+        $comment = Comment::findOrFail($id);
+        $comment->delete();
+        return back();
+    }
+
+    public function forceDelete($id)
+    {
+        $comment = Comment::onlyTrashed()->findOrFail($id);
+        $comment->forceDelete();
+        return redirect()->route('adminCommentsTrash')
+            ->with('message', 'The Comment Was Deleted Successfully');
     }
 }

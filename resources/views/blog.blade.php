@@ -5,6 +5,7 @@
 @endsection
 
 @section('widgets')
+    @include('widgets.popularposts')
     @include('widgets.instagram')
 @endsection
 

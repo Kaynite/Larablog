@@ -27,7 +27,7 @@
                     <div class="col-sm-6">
                         <label class="col-form-label" for="categoryName">Email</label>
                         <input type="email" name="email" class="form-control" id="commentByEmail" placeholder="Email" value="{{ $comment->email }}">
-                        @error('name')
+                        @error('email')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
@@ -35,8 +35,8 @@
                 <div class="form-group row">  
                     <div class="col-sm-12">
                         <label class="col-form-label" for="categoryName">Website</label>
-                        <input type="text" name="name" class="form-control" id="categoryName" placeholder="Post Title" value="{{ $comment->website }}">
-                        @error('name')
+                        <input type="text" name="website" class="form-control" id="website" placeholder="Post Title" value="{{ $comment->website }}">
+                        @error('website')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
@@ -45,7 +45,7 @@
                     <div class="col-sm-12">
                         <label class="col-form-label" for="categoryName">Website</label>
                         <textarea class="form-control" name="comment_body" rows="5">{{ $comment->comment_body }}</textarea>
-                        @error('name')
+                        @error('comment_body')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
