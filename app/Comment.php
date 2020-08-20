@@ -3,11 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Comment extends Model
 {
-    protected $fillable = ["comment_body", "comment_by", "post_id"];
+    Use SoftDeletes;
 
+    protected $fillable = ["comment_body", "comment_by", "post_id"];
 
     public function post()
     {
@@ -17,5 +19,13 @@ class Comment extends Model
     public function replies()
     {
         return $this->hasMany('App\Reply');
+    }
+
+    public function scopeApproved() {
+        return $this->where('approved', 1);
+    }
+
+    public function scopePending() {
+        return $this->where('approved', 0);
     }
 }

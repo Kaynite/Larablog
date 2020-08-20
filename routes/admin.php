@@ -36,9 +36,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('categories/{id}/delete', 'CategoriesController@destroy')->name('adminDeleteCategory');
 
     // Admin Panel Comments Routes Goes Here
-    Route::get('comments', function () {
-    })->name('adminComments');
+    Route::get('comments', 'CommentsController@index')->name('adminComments');
+    Route::get('comments/pending', 'CommentsController@pending')->name('adminCommentsPending');
+    Route::get('comments/trash', 'CommentsController@trash')->name('adminCommentsTrash');
     Route::get('comments/{id}', "CommentsController@show")->name("showComment");
+    Route::get('comments/{id}/edit', "CommentsController@edit")->name("adminEditComment");
+    Route::post('comments/{id}/update', 'CommentsController@update')->name('adminUpdateComment');
+    Route::get('comments/{id}/approve', 'CommentsController@approve')->name('adminApproveComment');
+
+    Route::get('comments/{id}/delete', 'CommentsController@destroy')->name('adminDeleteComment');
+
 
     // Profile Routes
     Route::get('profile', function() {

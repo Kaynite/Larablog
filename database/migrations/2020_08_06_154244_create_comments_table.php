@@ -17,8 +17,12 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->text('comment_body');
             $table->string('comment_by');
+            $table->string('email')->nullable();
+            $table->string('website')->nullable();
             $table->unsignedBigInteger('post_id');
             $table->timestamps();
+            $table->boolean('approved')->default(0);
+            $table->timestamp('deleted_at')->nullable();
             $table->foreign('post_id')->references('id')->on('posts');
         });
     }
