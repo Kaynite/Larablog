@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\DailyViews;
 use App\Events\PostViews;
 use App\Post;
 use App\Traits\ImageUpload;
@@ -71,6 +72,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         event(new PostViews($post)); // Post Views Event
+        $this->dailyViews();
         $prevPost = $this->prevPost($id);
         $nextPost = $this->nextPost($id);
         $relatedPosts = $this->relatedPosts($post->category_id);
@@ -176,8 +178,16 @@ class PostsController extends Controller
         return Post::inRandomOrder('id', 'title', 'image', 'created_at', 'category_id', 'author')->select()->where('category_id', $categoryId)->limit(3)->get();
     }
 
-
-    public function testScopes() {
-        return Post::get();
+    public function dailyViews() {
+        $row = DailyViews::where('day', date('Y-m-d'))->first();
+        if ($row) {
+            $row->views++;
+            $row->save();
+        } else {
+            DailyViews::create([
+                'day'   => date('Y-m-d'),
+                'views' => 1
+            ]);
+        }
     }
 }
