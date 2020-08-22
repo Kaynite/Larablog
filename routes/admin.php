@@ -35,7 +35,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('categories/{id}/update', 'CategoriesController@update')->name('adminUpdateCategory');
     Route::get('categories/{id}/delete', 'CategoriesController@destroy')->name('adminDeleteCategory');
 
-    // Admin Panel Comments Routes Goes Here
+    // Admin Panel Comments Routes
     Route::get('comments', 'CommentsController@index')->name('adminComments');
     Route::get('comments/pending', 'CommentsController@pending')->name('adminCommentsPending');
     Route::get('comments/trash', 'CommentsController@trash')->name('adminCommentsTrash');
@@ -44,9 +44,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('comments/{id}/update', 'CommentsController@update')->name('adminUpdateComment');
     Route::get('comments/{id}/approve', 'CommentsController@approve')->name('adminApproveComment');
     Route::get('comments/{id}/restore', 'CommentsController@restore')->name('adminRestoreComment');
-
     Route::get('comments/{id}/delete', 'CommentsController@destroy')->name('adminDeleteComment');
     Route::get('comments/{id}/forcedelete', 'CommentsController@forceDelete')->name('adminForceDeleteComment');
+
+    // Admin Panel Pages Routes
+    Route::get('pages', 'PagesController@adminPages')->name('adminPages');
+    Route::get('pages/create', 'PagesController@create')->name('adminCreatePage');
+    Route::post('pages/store', 'PagesController@store')->name('adminStorePage');
+    Route::get('pages/{id}/edit', 'PagesController@edit')->name('adminEditPage');
+    Route::post('pages/{id}/update', 'PagesController@update')->name('adminUpdatePage');
+    Route::get('pages/{id}/delete', 'PagesController@destroy')->name('adminDeletePage');
 
 
     // Profile Routes

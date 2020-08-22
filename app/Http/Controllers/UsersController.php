@@ -43,6 +43,7 @@ class UsersController extends Controller
     }
 
     public function author($id) {
+        // Shows in Blog
         $author = User::select('id', 'username', 'image', 'about')->findOrFail($id);
         return view('author')->with('author', $author);
     }

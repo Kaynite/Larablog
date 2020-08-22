@@ -2,7 +2,6 @@
 
 @section('title', $post->title)
 
-
 @section('posts')
     <!-- Post share -->
     <div class="section-row">

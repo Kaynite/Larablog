@@ -9,3 +9,5 @@ Route::get('category/{id}', "CategoriesController@show")->name("showCategory");
 Route::get('author/{id}', "UsersController@author")->name("showAuthor");
 
 Route::post('post/{id}/comment', "CommentsController@store")->name("storeComment");
+
+Route::get('pages/{slug}', 'PagesController@show')->name('showPage');

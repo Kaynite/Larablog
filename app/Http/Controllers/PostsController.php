@@ -145,7 +145,8 @@ class PostsController extends Controller
     public function adminPosts()
     {
         $posts = Post::select("id", "title", "category_id", "author", "views", "created_at")
-            ->orderBy("id", "desc")->get();
+            ->orderBy("id", "desc")
+            ->get();
         return view("admin.posts")->with("posts", $posts);
     }
 
