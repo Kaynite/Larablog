@@ -1,3 +1,9 @@
+<?php 
+    $categories = DB::table('categories')
+        ->select('id', 'name')
+        ->get();
+?>
+
 <div id="nav">
     <!-- Top Nav -->
     <div id="nav-top">
@@ -252,15 +258,13 @@
             <li><a href="{{ route('home') }}">Home</a></li>
             <li class="has-dropdown"><a>Categories</a>
                 <ul class="dropdown">
-                    <li><a href="#">Lifestyle</a></li>
-                    <li><a href="#">Fashion</a></li>
-                    <li><a href="#">Technology</a></li>
-                    <li><a href="#">Travel</a></li>
-                    <li><a href="#">Health</a></li>
+                    @foreach ($categories as $category)
+                        <li><a href="{{ route('showCategory', $category->id) }}">{{ $category->name }}</a></li>
+                    @endforeach
                 </ul>
             </li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="contact.html">Contacts</a></li>
+            <li><a href="{{ route('showPage', 'about-us') }}">About Us</a></li>
+            <li><a href="{{ route('showPage', 'contact-us') }}">Contact Us</a></li>
             <li><a href="#">Advertise</a></li>
         </ul>
         <button class="nav-close nav-aside-close"><span></span></button>
