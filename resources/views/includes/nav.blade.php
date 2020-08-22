@@ -1,4 +1,5 @@
-<?php 
+<?php
+    // Side-nav Categories
     $categories = DB::table('categories')
         ->select('id', 'name')
         ->get();
