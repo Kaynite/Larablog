@@ -19,4 +19,11 @@ class Post extends Model
     public function postAuthor() {
         return $this->belongsTo("App\User", 'author', 'id')->select('id', 'username', 'image', 'about');
     }
+
+    public function scopeHotPosts($query) {
+        return $query->select("id", "title", "author", "category_id", "created_at", "image")
+            ->where("hot", 1)
+            ->limit(3)
+            ->orderBy("id", "desc");
+    }
 }

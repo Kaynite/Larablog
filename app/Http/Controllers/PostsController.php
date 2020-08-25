@@ -25,13 +25,16 @@ class PostsController extends Controller
 
     public function index(Request $request)
     {
-        if ($request->s) {
-            $posts = $this->search($request->s);
-        } else {
-            $posts = Post::orderBy("id", "desc")->get();
-        }
-        $hotPosts = Post::select("id", "title", "author", "category_id", "created_at", "image")->where("hot", 1)->limit(3)->orderBy("id", "desc")->get();
-        return view("blog")->with(["posts" => $posts, "hotPosts" => $hotPosts]);
+        $posts = Post::orderBy("id", "desc")->limit(10)->get();
+        $hotPosts = Post::HotPosts()->get();
+        return view("blog")->with([
+            "posts" => $posts, "hotPosts" => $hotPosts
+            ]);
+    }
+
+    public function indexapi(Request $request)
+    {
+        return response()->json(Post::get());
     }
 
     public function create()
@@ -189,6 +192,19 @@ class PostsController extends Controller
                 'day'   => date('Y-m-d'),
                 'views' => 1
             ]);
+        }
+    }
+
+    public function ajaxPosts(Request $request) {
+        $posts = Post::paginate(10);
+        if ($request->ajax()) {
+            if($posts->count() > 0) {
+                return view('components.ajaxPosts')->with('posts', $posts);
+            } else {
+                return response()->json('No More Posts', 404);
+            }
+        } else {
+            abort(404);
         }
     }
 }

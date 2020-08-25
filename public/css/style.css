@@ -241,6 +241,11 @@ textarea.input {
   box-shadow: 0px 0px 0px 2px #ee4266 inset;
 }
 
+.primary-button:disabled {
+  background-color: #ffa3b7;
+  cursor: not-allowed;
+}
+
 .secondary-button {
   background-color: #353535;
   color: #fff;

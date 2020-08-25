@@ -1,4 +1,5 @@
 @if (count($posts) >= 1)
+    <div id="blogPosts">
     @foreach ($posts as $post)
     <div class="post post-row">
         <a class="post-img" href="{{ route("showPost", $post->id) }}"><img src="{{ asset('storage/posts/' . $post->image) }}" alt=""></a>
@@ -20,9 +21,10 @@
         </div>
     </div>
     @endforeach
+    </div>
     <div class="section-row loadmore text-center">
-        <a href="#" class="primary-button">Load More</a>
+        <button id="getMorePosts" class="primary-button">Load More</button>
     </div>
 @else 
-    <p class="text-center">There is no Posts available.</p>
+    <p class="text-center">There are no Posts available.</p>
 @endif
