@@ -39,30 +39,41 @@ class CommentsController extends Controller
 
     public function store(Request $request, $post_id)
     {
-        $validator = Validator::make($request->all(), [
-            'message' => 'required',
-            'name' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator);
+        if ($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'comment_body' => 'required',
+                'comment_by' => 'required'
+            ]);
+    
+            if ($validator->fails()) {
+                $data = [];
+                $data['status'] = 'V_ERR';
+                $data['messages'] = $validator->errors();
+                return response()->json($data);
+            }
+            
+            $comment = Comment::create([
+                "comment_body"  => $request->comment_body,
+                "comment_by"    => $request->comment_by,
+                "email"         => $request->email,
+                "website"       => $request->website,
+                "post_id"       => $post_id,
+                "approved"      => config('blog.comments_approval')
+            ]);
+            
+            if ($comment->approved)
+                $body = view('components.ajaxComment')->with('comment', $comment)->render();
+            else
+                $body = null;
+                
+            return response()->json([
+                'status'    => 'success',
+                'message'   => 'Your comment was submitted successfully and waits approval!',
+                'body'      => $body
+            ]);
         }
-        Comment::create([
-            "comment_body"  => $request->message,
-            "comment_by"    => $request->name,
-            "email"         => $request->email,
-            "website"       => $request->website,
-            "post_id"       => $post_id,
-        ]);
-        return back();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $comment = Comment::findOrFail($id);

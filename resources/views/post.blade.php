@@ -121,24 +121,20 @@
         <div class="section-title">
             <h3 class="title">Leave a reply</h3>
         </div>
-        <form class="post-reply" method="POST" action="{{ route("storeComment", $post->id) }}">
+        <form class="post-reply" id="commentForm" method="POST">
 
             @csrf
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-group">
-                        <textarea class="input" name="message" placeholder="Message"></textarea>
-                        @error('message')
-                            <small class='text-danger'>{{ $message }}</small>
-                        @enderror
+                        <textarea class="input" name="comment_body" placeholder="Message"></textarea>
+                        <small class='text-danger' style="display: none" id="comment_body_msg"></small>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <input class="input" type="text" name="name" placeholder="Name">
-                        @error('name')
-                            <small class='text-danger'>{{ $message }}</small>
-                        @enderror
+                        <input class="input" type="text" name="comment_by" placeholder="Name">
+                        <small class='text-danger' id="comment_by_msg"></small>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -171,4 +167,37 @@
 
 @section('pageHeader')
     @include('includes.postHeader')
+@endsection
+
+
+@section('scripts')
+<script>
+    $("#commentForm").on('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData($('#commentForm')[0]);
+        $('#comment_by_msg').hide();
+        $('#comment_body_msg').hide();
+        $.ajax({
+            url:"{{ route('ajax.addComment', $post->id) }}",
+            type:"POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success:function(dataBack) {
+                if(dataBack.status == 'success') {
+                    $('#post-comments').append(dataBack.body);
+                    alert(dataBack.message);
+                } else if(dataBack.status == 'V_ERR') {
+                    $.each(dataBack.messages, function(key, value) {
+                        $('#' + key + '_msg').show();
+                        $('#' + key + '_msg').text(value[0]);
+                    })
+                }
+
+            }, error: function (xhr, status, error) {
+                $("#getMorePosts").prop('disabled', true);
+            }
+        })
+    })
+</script>
 @endsection

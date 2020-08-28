@@ -9,7 +9,7 @@ class Comment extends Model
 {
     Use SoftDeletes;
 
-    protected $fillable = ["comment_body", "comment_by", "post_id", "email", "website"];
+    protected $fillable = ["comment_body", "comment_by", "post_id", "email", "website", "approved"];
 
     public function post()
     {

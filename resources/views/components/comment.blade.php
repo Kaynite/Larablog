@@ -2,7 +2,7 @@
     <div class="section-title">
         <h3 class="title">{{ $post->comments->count() }} Comment(s)</h3>
     </div>
-    <div class="post-comments">
+    <div class="post-comments" id="post-comments">
         @foreach ($post->comments as $comment)
             <div class="media">
                 <div class="media-left">
